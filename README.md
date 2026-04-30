@@ -9,8 +9,8 @@ Players pay entry into a PDA-escrowed vault. Prize auto-distributes on final mat
 |---|---|
 | Smart Contracts | [BracketChain-Programs](https://github.com/VitalikCholan/BracketChain-Programs) |
 | TypeScript SDK | [BracketChain-Sdk](https://github.com/VitalikCholan/BracketChain-Sdk) |
-| Indexer & API | [BracketChain-Backend](https://github.com/VitalikCholan/BracketChain-Backend) |
-| Web Application | [BracketChain-Frontend](https://github.com/VitalikCholan/BracketChain-Frontend) |
+| Indexer & API | [BracketChain-Backend](In progress) |
+| Web Application | [BracketChain-Frontend](https://github.com/btcthirst/BracketChain-Frontend) |
 
 ## Architecture
 
