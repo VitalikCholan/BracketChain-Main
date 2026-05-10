@@ -6,24 +6,6 @@
 
 ---
 
-## Live links
-
-| What | Where |
-|---|---|
-| Web app | [`https://bracketchain.vercel.app`](https://bracketchain.vercel.app) |
-| Indexer / REST API | [`https://bracketchain-indexer-production.up.railway.app`](https://bracketchain-indexer-production.up.railway.app) |
-| API health | [`/health`](https://bracketchain-indexer-production.up.railway.app/health) |
-| Program (devnet) | [`AuXJKpuZtkegs2ZSgopgckhN7Ev8bUz4zBc238LD2F1`](https://explorer.solana.com/address/AuXJKpuZtkegs2ZSgopgckhN7Ev8bUz4zBc238LD2F1?cluster=devnet) |
-| SDK on npm | [`@bracketchain/sdk@0.3.0`](https://www.npmjs.com/package/@bracketchain/sdk) |
-
----
-
-## The use case (one paragraph)
-
-An organizer creates a tournament with a chosen entry fee, max participants, and payout preset (Winner-Takes-All / Standard 60-25-15 / Deep 40-25-15-10-5-3-2). Players join by paying the entry fee into a PDA-escrowed vault. The organizer reports each match winner. On the final report, prizes auto-distribute on-chain per the chosen preset — placements receive 96.5% of the pool, the protocol receives 3.5%, all in the same transaction. Cancel before any match is reported and all entry fees + organizer deposits are refunded. There is no off-chain custody, no payout delay, and no admin override of match results.
-
----
-
 ## Repositories
 
 The protocol is implemented as a polyrepo across five repositories. Each has its own README with the layer-specific surface area.
@@ -35,6 +17,24 @@ The protocol is implemented as a polyrepo across five repositories. Each has its
 | Indexer + REST API | [`bracket-chain-indexer`](https://github.com/VitalikCholan/BracketChain-Indexer) | NestJS 11, Prisma 7, Postgres on Neon, Railway | [README](../bracket-chain-indexer/README.md) |
 | Web application | [`BracketChain-Frontend`](https://github.com/btcthirst/BracketChain-Frontend) | Next.js 16 App Router, Solana wallet adapter, Vercel | [README](../BracketChain-Frontend/README.md) |
 | Hackathon plan + this README | `bracketchain-main` | — | (this file) |
+
+---
+
+## The use case (one paragraph)
+
+An organizer creates a tournament with a chosen entry fee, max participants, and payout preset (Winner-Takes-All / Standard 60-25-15 / Deep 40-25-15-10-5-3-2). Players join by paying the entry fee into a PDA-escrowed vault. The organizer reports each match winner. On the final report, prizes auto-distribute on-chain per the chosen preset — placements receive 96.5% of the pool, the protocol receives 3.5%, all in the same transaction. Cancel before any match is reported and all entry fees + organizer deposits are refunded. There is no off-chain custody, no payout delay, and no admin override of match results.
+
+---
+
+## Live links
+
+| What | Where |
+|---|---|
+| Web app | [`https://bracketchain.vercel.app`](https://bracketchain.vercel.app) |
+| Indexer / REST API | [`https://bracketchain-indexer-production.up.railway.app`](https://bracketchain-indexer-production.up.railway.app) |
+| API health | [`/health`](https://bracketchain-indexer-production.up.railway.app/health) |
+| Program (devnet) | [`AuXJKpuZtkegs2ZSgopgckhN7Ev8bUz4zBc238LD2F1`](https://explorer.solana.com/address/AuXJKpuZtkegs2ZSgopgckhN7Ev8bUz4zBc238LD2F1?cluster=devnet) |
+| SDK on npm | [`@bracketchain/sdk@0.3.0`](https://www.npmjs.com/package/@bracketchain/sdk) |
 
 ---
 
