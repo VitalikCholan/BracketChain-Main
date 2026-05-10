@@ -2,7 +2,7 @@
 
 > Trustless tournament escrow on Solana. Organizers run brackets; players join by paying entry into a PDA-escrowed vault; prizes auto-distribute on the final reported match. No off-chain custody, no payout delays, no fragmented tooling.
 
-**Hackathon MVP** — devnet only. Mainnet deploy is gated on Squads 2-of-3 multisig migration (V1).
+**Hackathon MVP** — devnet only.
 
 ---
 
@@ -15,7 +15,6 @@
 | API health | [`/health`](https://bracketchain-indexer-production.up.railway.app/health) |
 | Program (devnet) | [`AuXJKpuZtkegs2ZSgopgckhN7Ev8bUz4zBc238LD2F1`](https://explorer.solana.com/address/AuXJKpuZtkegs2ZSgopgckhN7Ev8bUz4zBc238LD2F1?cluster=devnet) |
 | SDK on npm | [`@bracketchain/sdk@0.3.0`](https://www.npmjs.com/package/@bracketchain/sdk) |
-| Demo video (3 min) | _link added pre-submission_ |
 
 ---
 
@@ -119,11 +118,7 @@ Full instruction args, account schema, events list, and security caveats: [`brac
 
 ---
 
-## What's MVP vs V1+
-
-> The protocol ships a deliberately narrow MVP. Features below are **intentional cuts**, not omissions — each is documented in its respective layer's README and in the [hackathon plan](./bracketchain-mvp-plan.md).
-
-### Shipped (MVP)
+## What's in the MVP
 
 - 6 Anchor instructions on devnet, IDL synced across SDK + indexer
 - 3 fixed payout presets — Winner-Takes-All, Standard 60-25-15, Deep 40-25-15-10-5-3-2
@@ -136,36 +131,6 @@ Full instruction args, account schema, events list, and security caveats: [`brac
 - TypeScript SDK with two orthogonal clients (`BracketChainClient` for chain, `BracketChainIndexerClient` for REST), 21 typed errors with `mapError`, runtime `BN` re-export, single-PDA `subscribe()` for live state
 - NestJS indexer with Helius webhook ingest + minute-cadence reconciliation cron
 - Next.js web app: create / join / view / dashboard / explore, with WebSocket-driven live bracket updates and stale-while-revalidate reads
-
-### Deferred to V1+
-
-| Feature | Why deferred |
-|---|---|
-| **VRF seeding (Switchboard)** | MVP uses `slot_hashes` pseudo-random. Predictable to organizers under the right conditions. Acceptable for the trustless-escrow use case; required for high-stakes brackets. |
-| **On-chain 3rd–Nth placement attestation** | Only 1st and 2nd are validated on-chain at the final `report_result`; 3rd–Nth recipients are passed by the organizer and validated only against the participant set. |
-| **Squads 2-of-3 multisig upgrade authority** | Devnet is single-key for MVP. **Mainnet deploy is gated on this migration.** |
-| **Double Elimination / Swiss / Round Robin** | The on-chain `MatchNode` shape and `report_result` advancement model single-elimination only. V1 program-level work. |
-| **Custom payout splits** | Three fixed presets only. Custom tables need rounding-edge-case handling + sum validation. V2 candidate. |
-| **Best-of-N series ("games")** | Program has no series concept. V1 program redesign. |
-| **Dispute windows / on-chain disputes** | Match results are irrevocable once reported. Out of scope for the MVP escrow use case. |
-| **`@bracketchain/sdk/react` subpath** | Reference React hooks live in [`BracketChain-Frontend/hooks/`](https://github.com/btcthirst/BracketChain-Frontend/tree/main/hooks); promotion into the SDK happens once the API stabilizes against external consumers. |
-| **Auto-resub-on-WebSocket-disconnect** | MVP `subscribe()` uses a single `onAccountChange` per PDA with `onError` callback — no auto-reconnect. V1 will add Drift v2-style reconnect with backoff. |
-| **`getProgramAccounts`-based participant/match reconciliation** | The cron currently only reconciles Tournament-level drift. Participant + Match rows are webhook-only. V1 candidate when webhook reliability becomes a bottleneck. |
-| **Codama-generated client** | The IDL is vendored manually into both SDK and indexer (`make sync-idl` in the program repo). |
-| **Webhook HMAC validation** | `POST /webhooks/helius` is currently unauthenticated. Acceptable for devnet MVP; **mainnet-prep gate.** |
-
----
-
-## Demo (3-minute walkthrough)
-
-The judge-facing demo path. Funded test wallets and expected balance changes are in `DEMO.md` (added pre-submission).
-
-1. **0:00–0:20** — Hero page on Vercel, value prop, `/explore` listing renders live tournaments from the indexer.
-2. **0:20–0:50** — Connect Phantom (organizer wallet), create an 8-player tournament, 1 USDC entry, Standard 60-25-15 preset. Tournament appears in the indexer feed within ~2s of confirmation.
-3. **0:50–1:30** — Switch wallets, register 8 players in sequence. Vault SPL Token Account balance grows on a Solana Explorer side tab.
-4. **1:30–2:00** — Organizer starts the tournament. Bracket renders with `slot_hashes`-seeded order. Quarterfinal + semifinal winners reported — bracket updates live via WebSocket account subscription.
-5. **2:00–2:30** — Final winner reported. 1st / 2nd / 3rd ATAs increase on Explorer (60 / 25 / 15 of $7.72 net pool). Treasury account receives 3.5% ($0.28). All in the same transaction.
-6. **2:30–3:00** — Show indexer DB row + `Payout` rows in the REST API. Briefly demonstrate cancel: 4 joins → cancel → all refunded. No off-chain custody anywhere in the flow.
 
 ---
 
@@ -200,12 +165,6 @@ The top five risks tracked across MVP development:
 | `slot_hashes` pseudo-random seeding predictable to organizers | Documented as MVP cut. Trustless-escrow use case accepts this; high-stakes brackets need V1 VRF. |
 | Organizer can rig 3rd–Nth placements (only 1st + 2nd validated on-chain at final) | Documented MVP cut. V1 candidate (on-chain attestation). |
 | Railway cold start mid-demo or Helius webhook drop | Pre-warm before demo. Reconciliation cron covers webhook drops within ~60s. |
-
----
-
-## Hackathon plan
-
-The full phase tracker, decision log, open issues, and submission checklist live in [`bracketchain-mvp-plan.md`](./bracketchain-mvp-plan.md). It's the source of truth for what's shipped, what's deferred, and what's left for submission.
 
 ---
 
