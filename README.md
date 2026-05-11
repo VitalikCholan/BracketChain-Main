@@ -30,9 +30,7 @@ An organizer creates a tournament with a chosen entry fee, max participants, and
 
 | What | Where |
 |---|---|
-| Web app | [`https://bracketchain.vercel.app`](https://bracketchain.vercel.app) |
-| Indexer / REST API | [`https://bracketchain-indexer-production.up.railway.app`](https://bracketchain-indexer-production.up.railway.app) |
-| API health | [`/health`](https://bracketchain-indexer-production.up.railway.app/health) |
+| Web app | [`https://bracketchain.vercel.app`](https://bracketchain.xyz/) |
 | Program (devnet) | [`AuXJKpuZtkegs2ZSgopgckhN7Ev8bUz4zBc238LD2F1`](https://explorer.solana.com/address/AuXJKpuZtkegs2ZSgopgckhN7Ev8bUz4zBc238LD2F1?cluster=devnet) |
 | SDK on npm | [`@bracketchain/sdk@0.3.0`](https://www.npmjs.com/package/@bracketchain/sdk) |
 
